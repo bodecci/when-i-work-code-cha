@@ -61,10 +61,6 @@ spec:
       containers:
       - image: mysql:5.7
         name: mysql
-        args:
-        - /bin/sh
-        - c
-        - touch /tmp/healthy
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
@@ -85,10 +81,9 @@ spec:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
         livenessProbe:
-          exe:
-            command:
-            - cat
-            - /tmp/healthy
+          httpGet:
+            path: /healthz
+            port: 3306
           initialDelaySeconds: 5
           periodSeconds: 5
       volumes:
