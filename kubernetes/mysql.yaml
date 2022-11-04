@@ -81,8 +81,7 @@ spec:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
         livenessProbe:
-          httpGet:
-            path: /healthz
+          tcpSocket:
             port: 3306
           initialDelaySeconds: 5
           periodSeconds: 5
